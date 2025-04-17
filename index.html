@@ -1,0 +1,1611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arul Search Portal</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --main-gradient: linear-gradient(135deg, #6366F1, #8B5CF6);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #F3F4F6;
+      color: #1F2937;
+      line-height: 1.6;
+    }
+
+    //* CSS Variables example (optional) */
+:root {
+  --primary-bg: #ffffff;
+  --primary-text: #333333;
+  --accent-color: #007BFF;
+}
+
+/* Update navigation styling to use these colors */
+nav {
+  background-color: var(--primary-bg);
+  color: var(--primary-text);
+  padding: 10px 20px;
+  border-bottom: 1px solid var(--accent-color);
+}
+
+/* Optional: Link styles within the nav */
+nav a {
+  color: var(--primary-text);
+  text-decoration: none;
+  margin-right: 15px;
+}
+
+nav a:hover {
+  color: var(--accent-color);
+}
+
+
+    /* Header Styles */
+    header {
+      text-align: center;
+      padding: 50px 0 30px;
+      background: var(--main-gradient);
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header h1 {
+      font-size: 3.5rem;
+      margin-bottom: 10px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Bubble Animation Styles */
+    .bubbles {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .bubble {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.15);
+      animation: float 6s infinite;
+      bottom: -100px;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-1000px) scale(2);
+        opacity: 0;
+      }
+    }
+
+    /* Search Section Styles */
+    .search-wrapper {
+      padding: 40px 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .premium-search-container {
+      display: flex;
+      align-items: center;
+      padding: 5px 15px 5px 25px;
+      background-color: white;
+      border-radius: 50px;
+      box-shadow: 0 5px 30px rgba(0, 0, 0, 0.12);
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    .premium-search-container:focus-within {
+      box-shadow: 0 5px 35px rgba(99, 102, 241, 0.25);
+      transform: translateY(-2px);
+    }
+
+    .search-icon {
+      font-size: 1.5rem;
+      margin-right: 15px;
+      color: #6b7280;
+    }
+
+    #searchInput {
+      flex: 1;
+      border: none;
+      padding: 15px 0;
+      font-size: 1rem;
+      outline: none;
+      width: 100%;
+    }
+
+    #searchButton {
+      background: var(--main-gradient);
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    #searchButton:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
+    }
+
+    /* Auto Suggestion Styles */
+    .autocomplete-container {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background-color: white;
+      border-radius: 0 0 15px 15px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      margin-top: 5px;
+      z-index: 1000;
+      max-height: 250px;
+      overflow-y: auto;
+      display: none;
+    }
+
+    .autocomplete-item {
+      padding: 12px 25px;
+      cursor: pointer;
+      border-bottom: 1px solid #f0f0f0;
+      transition: all 0.2s;
+    }
+
+    .autocomplete-item:hover {
+      background-color: #f9f9f9;
+    }
+
+    .autocomplete-item:last-child {
+      border-bottom: none;
+      border-radius: 0 0 15px 15px;
+    }
+
+    .autocomplete-item .highlight {
+      font-weight: bold;
+      color: #6366F1;
+    }
+
+    /* Info Sections Styles */
+    .info {
+      max-width: 1000px;
+      margin: 60px auto;
+      padding: 0 20px;
+      text-align: center;
+    }
+
+    .info h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #333;
+      position: relative;
+      display: inline-block;
+    }
+
+    .info h2::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: var(--main-gradient);
+    }
+
+    .info p {
+      font-size: 1.05rem;
+      color: #444;
+      margin-bottom: 20px;
+    }
+
+    /* Profile Section */
+    .profile-container {
+      margin-top: 30px;
+    }
+
+    .profile-pic {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 5px solid white;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s;
+    }
+
+    .profile-pic:hover {
+      transform: scale(1.05);
+    }
+
+    .linkedin-button {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 10px 25px;
+      background: var(--main-gradient);
+      color: white;
+      text-decoration: none;
+      border-radius: 30px;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .linkedin-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
+    }
+
+    /* Popular Searches */
+    .popular-searches {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .search-tag {
+      padding: 8px 15px;
+      background-color: white;
+      border-radius: 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .search-tag:hover {
+      background: var(--main-gradient);
+      color: white;
+    }
+
+    /* Footer Styles */
+    footer {
+      background: var(--main-gradient);
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 14px;
+    }
+
+    /* AI Response Container Styles */
+    .ai-response-container {
+      max-width: 700px;
+      margin: 30px auto;
+      padding: 20px;
+      background-color: white;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      display: none;
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .ai-response-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .ai-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--main-gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      margin-right: 10px;
+    }
+
+    .ai-response-content {
+      line-height: 1.6;
+      color: #333;
+    }
+
+    .loading-indicator {
+      display: none;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .loading-dots {
+      display: inline-block;
+    }
+
+    .loading-dots:after {
+      content: '.';
+      animation: dots 1.5s steps(5, end) infinite;
+    }
+
+    @keyframes dots {
+      0%, 20% { content: '.'; }
+      40% { content: '..'; }
+      60% { content: '...'; }
+      80%, 100% { content: ''; }
+    }
+
+    .search-toggle {
+      display: flex;
+      max-width: 700px;
+      margin: 0 auto 20px;
+    }
+
+    .search-mode-button {
+      flex: 1;
+      padding: 12px;
+      background-color: #e0e0e0;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .search-mode-button:first-child {
+      border-radius: 8px 0 0 8px;
+    }
+
+    .search-mode-button:last-child {
+      border-radius: 0 8px 8px 0;
+    }
+
+    .search-mode-button.active {
+      background: var(--main-gradient);
+      color: white;
+    }
+
+    /* Voice Search Button */
+    .voice-search {
+      margin-right: 15px;
+      color: #6b7280;
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .voice-search:hover {
+      color: #6366F1;
+    }
+
+    .voice-search.recording {
+      color: #ef4444;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.6; }
+      100% { opacity: 1; }
+    }
+
+    /* Search History */
+    .search-history {
+      max-width: 700px;
+      margin: 20px auto;
+      background-color: white;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .search-history-header {
+      padding: 15px 20px;
+      background: var(--main-gradient);
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .search-history-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .search-history-item {
+      padding: 12px 20px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .search-history-item:hover {
+      background-color: #f9f9f9;
+    }
+
+    /* Back to Top Button */
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--main-gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      cursor: pointer;
+      opacity: 0;
+      transition: all 0.3s;
+      z-index: 99;
+    }
+
+    .back-to-top.show {
+      opacity: 1;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      nav ul {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      nav ul li {
+        padding: 10px;
+      }
+
+      header h1 {
+        font-size: 2.5rem;
+      }
+
+      .premium-search-container {
+        flex-direction: column;
+        padding: 20px;
+        border-radius: 20px;
+      }
+
+      #searchForm {
+        width: 100%;
+        flex-direction: column;
+      }
+
+      #searchInput {
+        margin: 10px 0;
+        width: 100%;
+      }
+
+      #searchButton {
+        width: 100%;
+        margin-top: 10px;
+      }
+      
+      .autocomplete-container {
+        position: relative;
+        top: 5px;
+      }
+    }
+    :root {
+  /* Light theme (your current colors) */
+  --primary-color: #7570ff; /* Your purple color */
+  --primary-gradient: linear-gradient(135deg, #7570ff 0%, #6366f1 100%);
+  --background-color: #f5f7fa; /* Light gray background */
+  --surface-color: #ffffff; /* White surface */
+  --text-color: #333333; /* Dark text */
+  --secondary-text: #666666; /* Secondary text */
+  --button-color: #7570ff; /* Purple buttons */
+  --button-text: #ffffff; /* White button text */
+  --border-color: #e1e4e8; /* Light borders */
+  --input-bg: #ffffff; /* Input background */
+  --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+}
+
+[data-theme="dark"] {
+  /* Dark theme (complementary to your design) */
+  --primary-color: #8580ff; /* Slightly lighter purple */
+  --primary-gradient: linear-gradient(135deg, #5550cc 0%, #4a4cc9 100%); /* Darker purple gradient */
+  --background-color: #121212; /* Dark background */
+  --surface-color: #1e1e1e; /* Dark surface */
+  --text-color: #e0e0e0; /* Light text */
+  --secondary-text: #b0b0b0; /* Secondary text */
+  --button-color: #6366f1; /* Maintain similar button color */
+  --button-text: #ffffff; /* White button text */
+  --border-color: #333333; /* Dark borders */
+  --input-bg: #2d2d2d; /* Dark input background */
+  --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Stronger shadow */
+}
+
+/* Apply these variables to your elements */
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: all 0.3s ease;
+}
+
+.header-section {
+  background: var(--primary-gradient);
+  color: white;
+}
+
+.search-container {
+  background-color: var(--surface-color);
+  box-shadow: var(--card-shadow);
+}
+
+.search-input {
+  background-color: var(--input-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}
+
+.search-button {
+  background-color: var(--button-color);
+  color: var(--button-text);
+}
+
+.content-section {
+  background-color: var(--surface-color);
+}
+
+.popular-searches .site-pill {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+}
+
+.popular-searches .site-pill.active {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+/* Toggle Button Styling */
+.dark-mode-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+#darkModeToggle {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+#darkModeToggle:hover {
+  transform: scale(1.1);
+}
+/* Base nav style */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background: white;
+  position: relative;
+  z-index: 1000;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+
+/* Hamburger style */
+.menu-toggle {
+  display: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+/* Mobile style */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    background: white;
+    padding: 1rem 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .nav-links.show {
+    display: flex;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+}
+/* Ambient Background Effect */
+#ambient-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradientFlow 15s ease infinite;
+  opacity: 0.6;
+}
+
+@keyframes gradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Music Button */
+#musicToggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #ffffffcc;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.4rem;
+  padding: 10px 14px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+}
+.screenshot-search-container {
+  margin: 20px auto;
+  text-align: center;
+}
+
+.upload-label {
+  display: inline-block;
+  background-color: #5e60ce;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.upload-label:hover {
+  background-color: #4ea8de;
+}
+
+.offline-tools {
+  margin: 2rem auto;
+  max-width: 500px;
+  padding: 20px;
+  background: #f9f9f9cc;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+#offlineNote {
+  width: 100%;
+  height: 100px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  resize: vertical;
+}
+
+#saveNoteBtn {
+  margin-top: 10px;
+  padding: 10px 20px;
+  border: none;
+  background-color: #5e60ce;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+#noteStatus {
+  margin-top: 10px;
+  font-style: italic;
+  color: #444;
+}
+.floating-paper {
+  position: fixed;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2rem;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transition: opacity 0.3s ease-in-out;
+}
+
+@keyframes flyToNote {
+  0% {
+    bottom: 100px;
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-100px) scale(1.2);
+  }
+  100% {
+    bottom: 20px;
+    left: 95%;
+    opacity: 0;
+    transform: translateX(-50%) scale(0.5);
+  }
+}
+
+.floating-paper.animate {
+  animation: flyToNote 1.5s ease-in-out forwards;
+}
+
+.hidden {
+  display: none;
+}
+/* CSS Variables example (optional) */
+:root {
+  --primary-bg: #dd1010;
+  --primary-text: #333333;
+  --accent-color: #007BFF;
+}
+
+/* Update navigation styling to use these colors */
+nav {
+  background-color: var(--primary-bg);
+  color: var(--primary-text);
+  padding: 10px 20px;
+  border-bottom: 1px solid var(--accent-color);
+}
+
+/* Optional: Link styles within the nav */
+nav a {
+  color: var(--primary-text);
+  text-decoration: none;
+  margin-right: 15px;
+}
+
+nav a:hover {
+  color: var(--accent-color);
+}
+#loginScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.login-box {
+  background: white;
+  padding: 2rem 3rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  text-align: center;
+}
+
+.login-box input {
+  padding: 10px;
+  width: 100%;
+  margin: 1rem 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.login-box button {
+  background-color: #6c5ce7;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+  </style>
+</head>
+<body>
+  <!-- LOGIN SCREEN -->
+<div id="loginScreen">
+  <div class="login-box">
+    <h2>Login to Arul Portal</h2>
+    <input type="email" id="email" placeholder="Enter your email" required />
+    <button onclick="handleLogin()">Login</button>
+  </div>
+</div>
+
+<!-- MAIN WEBSITE CONTENT STARTS HERE -->
+<div id="mainContent" style="display: none;">
+
+  
+  <!-- Navigation -->
+  <nav class="navbar">
+    
+  
+    <div class="menu-toggle" id="menuToggle">
+      ☰
+    </div>
+  
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#search">Search</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#social">Social</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+
+  
+    <!-- HTML for the toggle button - Add this near your navigation -->
+<div class="dark-mode-toggle">
+  <button id="darkModeToggle" aria-label="Toggle dark mode">
+    <span id="darkModeIcon">🌙</span>
+    <span id="lightModeIcon" style="display:none">☀️</span>
+  </button>
+</div>
+  </nav>
+  
+
+  <!-- Back to Top Button -->
+  <div class="back-to-top" id="backToTop">
+    <i class="fas fa-arrow-up"></i>
+  </div>
+  <!-- Ambient Background Container -->
+<div id="ambient-bg"></div>
+
+<!-- Music Toggle Button -->
+<button id="musicToggle" title="Toggle Ambient Music">🎧</button>
+
+<!-- Audio Element (Optional Music) -->
+<audio id="ambientAudio" loop>
+  <source src="./mp3/Free Background Music For Youtube Videos No Copyright Download for Content Creators-yt.savetube.me.mp3" type="audio/mpeg">
+</audio>
+
+
+  <!-- Header Section with Bubbles -->
+  <header id="home">
+    <div class="bubbles" id="bubbles"></div>
+    <h1>ARUL SEARCH PORTAL</h1>
+    <p class="subtitle">Act as if what you do makes a difference. It does</p>
+  </header>
+
+  <!-- Search Section -->
+  <section id="search" class="search-wrapper">
+    <div class="search-toggle">
+      <button id="normalSearchBtn" class="search-mode-button active">Website Search</button>
+      <button id="aiSearchBtn" class="search-mode-button">AI Search</button>
+    </div>
+    
+    <div class="premium-search-container">
+      <div class="search-icon"><i class="fas fa-search"></i></div>
+      <button id="voiceSearchBtn" class="voice-search"><i class="fas fa-microphone"></i></button>
+      <form id="searchForm" onsubmit="handleSearch(event)" style="display: flex; flex: 1;">
+        <input type="text" id="searchInput" placeholder="Search websites or ask AI a question..." name="query" autocomplete="off" />
+        <button id="searchButton" type="submit">Search</button>
+      </form>
+      
+      <!-- Autocomplete Suggestions Container -->
+      <div class="autocomplete-container" id="autocompleteContainer"></div>
+    </div>
+    
+    <div class="loading-indicator" id="loadingIndicator">
+      <div class="loading-dots">Thinking</div>
+    </div>
+    <div class="screenshot-search-container">
+      <label for="imageUpload" class="upload-label">
+        🔍 Upload Screenshot to Search
+      </label>
+      <input type="file" id="imageUpload" accept="image/*" style="display: none">
+    </div>
+    <section class="offline-tools">
+      <h2>📝 Offline Notes</h2>
+      <textarea id="offlineNote" placeholder="Type your note here..."></textarea>
+      <button id="saveNoteBtn">Save Note</button>
+      <p id="noteStatus"></p>
+    </section>
+    <!-- Floating Paper Animation -->
+<div id="floating-paper" class="floating-paper hidden">
+  📝
+</div>
+
+
+    <div class="ai-response-container" id="aiResponseContainer">
+      <div class="ai-response-header">
+        <div class="ai-avatar">AI</div>
+        <h3>AI Response</h3>
+      </div>
+      <div class="ai-response-content" id="aiResponseContent"></div>
+    </div>
+
+    <!-- Search History -->
+    <div class="search-history" id="searchHistory">
+      <div class="search-history-header">
+        <h3>Recent Searches</h3>
+        <button id="clearHistory">Clear All</button>
+      </div>
+      <ul class="search-history-list" id="searchHistoryList">
+        <!-- Search history items will be added here by JavaScript -->
+      </ul>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="info">
+    <h2>About Arul's Website</h2>
+    <p>
+      This website is a custom web search portal created by Arul. It works like a personal search engine where you can type known keywords and jump directly to your favorite websites like YouTube, WhatsApp, or even Arul's own GitHub page. Now with AI-powered search, you can also ask questions and get intelligent answers!
+    </p>
+    <div class="profile-container">
+      
+      <br>
+      <a href="http://www.linkedin.com/in/arul-yogeshwaran-783854342" class="linkedin-button" target="_blank">View my LinkedIn</a>
+    </div>
+  </section>
+
+  <!-- Popular Searches Section -->
+  <section id="socials" class="info">
+    <h2>Popular Searches</h2>
+    <p>Try clicking any of these shortcuts to quickly visit sites:</p>
+    <div class="popular-searches" id="popularSearches">
+      <!-- Popular search tags will be generated by JavaScript -->
+    </div>
+    <p style="margin-top: 30px;">Or try asking questions like:</p>
+    <div class="popular-searches">
+      <div class="search-tag" onclick="setAIQuestion('What is Newton\'s second law?')">Newton's second law?</div>
+      <div class="search-tag" onclick="setAIQuestion('How do I bake a chocolate cake?')">Bake a chocolate cake</div>
+      <div class="search-tag" onclick="setAIQuestion('Explain quantum computing')">Quantum computing</div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="info">
+    <h2>Contact</h2>
+    <p>
+      Want to collaborate or contribute to Arul's project? Reach out on <strong>GitHub: arul-butterfly</strong> or ping on social media!
+    </p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 Arul Search Engine. Built with ❤️ by Arul.
+  </footer>
+
+      <script>
+        // Website shortcuts data
+const websiteShortcuts = {
+  'youtube': 'https://www.youtube.com',
+  'google': 'https://www.google.com',
+  'gmail': 'https://mail.google.com',
+  'whatsapp': 'https://web.whatsapp.com',
+  'facebook': 'https://www.facebook.com',
+  'instagram': 'https://www.instagram.com',
+  'twitter': 'https://twitter.com',
+  'github': 'https://github.com',
+  'github arul': 'https://github.com/arul-butterfly',
+  'linkedin': 'https://www.linkedin.com',
+  'linkedin arul': 'http://www.linkedin.com/in/arul-yogeshwaran-783854342',
+  'netflix': 'https://www.netflix.com',
+  'amazon': 'https://www.amazon.com',
+  'reddit': 'https://www.reddit.com',
+  'wikipedia': 'https://www.wikipedia.org',
+  'spotify': 'https://www.spotify.com',
+  'weather': 'https://www.accuweather.com',
+  'news': 'https://news.google.com',
+  'maps': 'https://maps.google.com',
+  'drive': 'https://drive.google.com',
+  'translate': 'https://translate.google.com',
+  'photos': 'https://photos.google.com',
+  'calendar': 'https://calendar.google.com',
+  'meet': 'https://meet.google.com',
+  'classroom': 'https://classroom.google.com',
+  'keep': 'https://keep.google.com',
+  'docs': 'https://docs.google.com',
+  'sheets': 'https://sheets.google.com',
+  'slides': 'https://slides.google.com',
+  'forms': 'https://forms.google.com',
+};
+
+// DOM elements
+const searchInput = document.getElementById('searchInput');
+const searchForm = document.getElementById('searchForm');
+const autocompleteContainer = document.getElementById('autocompleteContainer');
+const aiResponseContainer = document.getElementById('aiResponseContainer');
+const aiResponseContent = document.getElementById('aiResponseContent');
+const loadingIndicator = document.getElementById('loadingIndicator');
+const normalSearchBtn = document.getElementById('normalSearchBtn');
+const aiSearchBtn = document.getElementById('aiSearchBtn');
+const voiceSearchBtn = document.getElementById('voiceSearchBtn');
+const backToTop = document.getElementById('backToTop');
+const searchHistoryList = document.getElementById('searchHistoryList');
+const clearHistoryBtn = document.getElementById('clearHistory');
+const searchHistory = document.getElementById('searchHistory');
+const popularSearches = document.getElementById('popularSearches');
+
+// App state
+let searchMode = 'normal'; // 'normal' or 'ai'
+let isRecording = false;
+let searchHistoryItems = JSON.parse(localStorage.getItem('searchHistory')) || [];
+
+// Initialize the application
+function init() {
+  // Create bubble animation
+  createBubbles();
+  
+  // Generate popular search tags
+  generatePopularSearchTags();
+  
+  // Load search history from localStorage
+  loadSearchHistory();
+  
+  // Event listeners
+  setupEventListeners();
+  
+  // Show/hide back to top button on scroll
+  window.addEventListener('scroll', handleScroll);
+}
+
+// Create bubbles for header animation
+function createBubbles() {
+  const bubblesContainer = document.getElementById('bubbles');
+  const bubbleCount = 15;
+  
+  for (let i = 0; i < bubbleCount; i++) {
+    const bubble = document.createElement('div');
+    bubble.classList.add('bubble');
+    
+    const size = Math.random() * 100 + 20;
+    const left = Math.random() * 100;
+    const delay = Math.random() * 8;
+    const duration = Math.random() * 4 + 4;
+    
+    bubble.style.width = `${size}px`;
+    bubble.style.height = `${size}px`;
+    bubble.style.left = `${left}%`;
+    bubble.style.animationDelay = `${delay}s`;
+    bubble.style.animationDuration = `${duration}s`;
+    
+    bubblesContainer.appendChild(bubble);
+  }
+}
+
+// Generate popular search tags based on websiteShortcuts
+function generatePopularSearchTags() {
+  const popularKeys = ['youtube', 'google', 'github', 'whatsapp', 'linkedin', 'netflix', 'spotify', 'weather'];
+  
+  popularKeys.forEach(key => {
+    const tag = document.createElement('div');
+    tag.classList.add('search-tag');
+    tag.innerText = key.charAt(0).toUpperCase() + key.slice(1);
+    tag.addEventListener('click', () => {
+      searchInput.value = key;
+      handleSearch(new Event('submit'));
+    });
+    
+    popularSearches.appendChild(tag);
+  });
+}
+
+// Set up event listeners
+function setupEventListeners() {
+  // Search form submission
+  searchForm.addEventListener('submit', handleSearch);
+  
+  // Search input event for autocomplete
+  searchInput.addEventListener('input', handleAutocomplete);
+  
+  // Search mode toggle
+  normalSearchBtn.addEventListener('click', () => setSearchMode('normal'));
+  aiSearchBtn.addEventListener('click', () => setSearchMode('ai'));
+  
+  // Voice search button
+  voiceSearchBtn.addEventListener('click', toggleVoiceSearch);
+  
+  // Back to top button
+  backToTop.addEventListener('click', scrollToTop);
+  
+  // Clear search history
+  clearHistoryBtn.addEventListener('click', clearSearchHistory);
+}
+
+// Handle search form submission
+function handleSearch(event) {
+  event.preventDefault();
+  const query = searchInput.value.trim().toLowerCase();
+  
+  if (!query) return;
+  
+  // Hide autocomplete
+  autocompleteContainer.style.display = 'none';
+  
+  // Add to search history
+  addToSearchHistory(query);
+  
+  if (searchMode === 'normal') {
+    handleNormalSearch(query);
+  } else {
+    handleAISearch(query);
+  }
+}
+
+// Handle normal website search
+function handleNormalSearch(query) {
+  // Check if the query matches a shortcut
+  if (websiteShortcuts[query]) {
+    window.open(websiteShortcuts[query], '_blank');
+  } else {
+    // If no direct match, search Google
+    window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}`, '_blank');
+  }
+}
+
+// Handle AI search
+function handleAISearch(query) {
+  // Show loading indicator
+  loadingIndicator.style.display = 'block';
+  aiResponseContainer.style.display = 'none';
+  
+  // Simulate AI processing with timeout
+  setTimeout(() => {
+    loadingIndicator.style.display = 'none';
+    aiResponseContainer.style.display = 'block';
+    
+    // Generate a simple AI response (in a real app, this would call an API)
+    generateAIResponse(query);
+  }, 1500);
+}
+
+// Generate AI response (simulated)
+function generateAIResponse(query) {
+  // This is a simplified simulation
+  // In a real application, you would call an API like OpenAI's API
+  const responses = {
+    "what is newton's second law?": "Newton's Second Law states that the acceleration of an object is directly proportional to the net force acting on it and inversely proportional to its mass. The equation is F = ma, where F is the net force, m is the mass, and a is the acceleration.",
+    "how do i bake a chocolate cake?": "To bake a chocolate cake, you'll need flour, sugar, cocoa powder, baking powder, eggs, milk, and oil. Mix dry ingredients, add wet ingredients, bake at 350°F for about 30 minutes. For detailed steps, I recommend checking a specific recipe from a cooking website.",
+    "explain quantum computing": "Quantum computing uses quantum bits or 'qubits' instead of traditional binary bits. Unlike classical bits that can be either 0 or 1, qubits can exist in multiple states simultaneously due to quantum superposition. This allows quantum computers to perform certain calculations exponentially faster than classical computers for specific problems like factoring large numbers or simulating quantum systems."
+  };
+  
+  // Convert query to lowercase and remove punctuation for matching
+  const cleanQuery = query.toLowerCase().replace(/[.,?!]/g, '');
+  
+  // Check if we have a predefined response
+  for (const [key, response] of Object.entries(responses)) {
+    if (cleanQuery.includes(key.replace(/[.,?!]/g, ''))) {
+      aiResponseContent.innerHTML = response;
+      return;
+    }
+  }
+  
+  // Default response if no match
+  aiResponseContent.innerHTML = `I searched for information about "${query}". This is a demo AI response. In a real implementation, this would connect to an AI service like OpenAI's GPT to generate relevant answers to your questions.`;
+}
+
+// Handle autocomplete suggestions
+function handleAutocomplete() {
+  const query = searchInput.value.trim().toLowerCase();
+  
+  if (!query) {
+    autocompleteContainer.style.display = 'none';
+    return;
+  }
+  
+  // Find matching shortcuts
+  const matches = Object.keys(websiteShortcuts).filter(key => 
+    key.includes(query)
+  ).slice(0, 5); // Limit to 5 suggestions
+  
+  if (matches.length > 0) {
+    autocompleteContainer.innerHTML = '';
+    
+    matches.forEach(match => {
+      const item = document.createElement('div');
+      item.classList.add('autocomplete-item');
+      
+      // Highlight the matching part
+      const matchHtml = match.replace(query, `<span class="highlight">${query}</span>`);
+      item.innerHTML = matchHtml;
+      
+      // Add click event to select suggestion
+      item.addEventListener('click', () => {
+        searchInput.value = match;
+        autocompleteContainer.style.display = 'none';
+        handleSearch(new Event('submit'));
+      });
+      
+      autocompleteContainer.appendChild(item);
+    });
+    
+    autocompleteContainer.style.display = 'block';
+  } else {
+    autocompleteContainer.style.display = 'none';
+  }
+}
+
+// Toggle search mode between normal and AI
+function setSearchMode(mode) {
+  searchMode = mode;
+  
+  if (mode === 'normal') {
+    normalSearchBtn.classList.add('active');
+    aiSearchBtn.classList.remove('active');
+    searchInput.placeholder = 'Search websites...';
+  } else {
+    normalSearchBtn.classList.remove('active');
+    aiSearchBtn.classList.add('active');
+    searchInput.placeholder = 'Ask AI a question...';
+  }
+  
+  // Clear any previous AI responses
+  aiResponseContainer.style.display = 'none';
+}
+
+// Handle scroll events for back to top button
+function handleScroll() {
+  if (window.scrollY > 300) {
+    backToTop.classList.add('show');
+  } else {
+    backToTop.classList.remove('show');
+  }
+}
+
+// Scroll to top when button is clicked
+function scrollToTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+}
+
+// Set AI question from popular searches
+function setAIQuestion(question) {
+  searchInput.value = question;
+  setSearchMode('ai');
+  handleSearch(new Event('submit'));
+  
+  // Scroll to the search section
+  document.getElementById('search').scrollIntoView({ behavior: 'smooth' });
+}
+
+// Toggle voice search functionality
+function toggleVoiceSearch() {
+  if (!isRecording) {
+    // Check if browser supports speech recognition
+    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      const recognition = new SpeechRecognition();
+      
+      recognition.lang = 'en-US';
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
+      
+      // Start recording
+      voiceSearchBtn.classList.add('recording');
+      isRecording = true;
+      recognition.start();
+      
+      // When result is captured
+      recognition.onresult = (event) => {
+        const speechResult = event.results[0][0].transcript;
+        searchInput.value = speechResult;
+        
+        // Stop recording
+        voiceSearchBtn.classList.remove('recording');
+        isRecording = false;
+        
+        // If in AI mode, automatically submit
+        if (searchMode === 'ai') {
+          handleSearch(new Event('submit'));
+        } else {
+          // Show autocomplete for normal search
+          handleAutocomplete();
+        }
+      };
+      
+      // Handle errors
+      recognition.onerror = () => {
+        voiceSearchBtn.classList.remove('recording');
+        isRecording = false;
+      };
+      
+      // When recognition ends
+      recognition.onend = () => {
+        voiceSearchBtn.classList.remove('recording');
+        isRecording = false;
+      };
+    } else {
+      alert('Speech recognition is not supported in your browser. Try Chrome or Edge.');
+    }
+  } else {
+    // If already recording, show visual feedback
+    voiceSearchBtn.classList.remove('recording');
+    isRecording = false;
+  }
+}
+
+// Add search to history
+function addToSearchHistory(query) {
+  // Remove duplicates
+  searchHistoryItems = searchHistoryItems.filter(item => item !== query);
+  
+  // Add new item to the beginning
+  searchHistoryItems.unshift(query);
+  
+  // Keep only the latest 10 items
+  if (searchHistoryItems.length > 10) {
+    searchHistoryItems = searchHistoryItems.slice(0, 10);
+  }
+  
+  // Save to localStorage
+  localStorage.setItem('searchHistory', JSON.stringify(searchHistoryItems));
+  
+  // Update UI
+  loadSearchHistory();
+}
+
+// Load search history from localStorage
+function loadSearchHistory() {
+  searchHistoryList.innerHTML = '';
+  
+  if (searchHistoryItems.length === 0) {
+    searchHistory.style.display = 'none';
+    return;
+  }
+  
+  searchHistory.style.display = 'block';
+  
+  searchHistoryItems.forEach(item => {
+    const listItem = document.createElement('li');
+    listItem.classList.add('search-history-item');
+    
+    const itemText = document.createElement('span');
+    itemText.textContent = item;
+    
+    const deleteBtn = document.createElement('button');
+    deleteBtn.innerHTML = '<i class="fas fa-times"></i>';
+    deleteBtn.style.background = 'none';
+    deleteBtn.style.border = 'none';
+    deleteBtn.style.cursor = 'pointer';
+    deleteBtn.style.color = '#6b7280';
+    
+    deleteBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      removeFromHistory(item);
+    });
+    
+    listItem.appendChild(itemText);
+    listItem.appendChild(deleteBtn);
+    
+    listItem.addEventListener('click', () => {
+      searchInput.value = item;
+      handleSearch(new Event('submit'));
+    });
+    
+    searchHistoryList.appendChild(listItem);
+  });
+}
+
+// Remove item from search history
+function removeFromHistory(item) {
+  searchHistoryItems = searchHistoryItems.filter(i => i !== item);
+  localStorage.setItem('searchHistory', JSON.stringify(searchHistoryItems));
+  loadSearchHistory();
+}
+
+// Clear all search history
+function clearSearchHistory() {
+  searchHistoryItems = [];
+  localStorage.removeItem('searchHistory');
+  loadSearchHistory();
+}
+
+// Initialize the app when DOM is fully loaded
+document.addEventListener('DOMContentLoaded', init);
+
+document.addEventListener('DOMContentLoaded', () => {
+  const darkModeToggle = document.getElementById('darkModeToggle');
+  const darkModeIcon = document.getElementById('darkModeIcon');
+  const lightModeIcon = document.getElementById('lightModeIcon');
+  
+  // Check for saved theme preference
+  const savedTheme = localStorage.getItem('theme');
+  
+  // Set initial theme
+  if (savedTheme === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    darkModeIcon.style.display = 'none';
+    lightModeIcon.style.display = 'inline';
+  }
+  
+  // Toggle theme when button is clicked
+  darkModeToggle.addEventListener('click', () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    
+    if (currentTheme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'light');
+      localStorage.setItem('theme', 'light');
+      darkModeIcon.style.display = 'inline';
+      lightModeIcon.style.display = 'none';
+    } else {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      localStorage.setItem('theme', 'dark');
+      darkModeIcon.style.display = 'none';
+      lightModeIcon.style.display = 'inline';
+    }
+  });
+});
+const toggle = document.getElementById('menuToggle');
+const links = document.getElementById('navLinks');
+
+toggle.addEventListener('click', () => {
+  links.classList.toggle('show');
+});
+// Ambient Music Toggle
+const musicToggle = document.getElementById('musicToggle');
+const ambientAudio = document.getElementById('ambientAudio');
+
+let isPlaying = false;
+
+musicToggle.addEventListener('click', () => {
+  if (!isPlaying) {
+    ambientAudio.play();
+    musicToggle.textContent = '🔇'; // change icon
+  } else {
+    ambientAudio.pause();
+    musicToggle.textContent = '🎧';
+  }
+  isPlaying = !isPlaying;
+});
+document.getElementById("imageUpload").addEventListener("change", function () {
+  const file = this.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function () {
+    const blob = new Blob([reader.result], { type: file.type });
+
+    // Upload the image to a reverse image search
+    // Note: Google doesn't allow direct upload through a URL, but we simulate the process via new tab
+
+    const formData = new FormData();
+    formData.append("encoded_image", file);
+    formData.append("image_content", "");
+    formData.append("filename", file.name);
+
+    // Use POST to Google Lens reverse image search
+    const form = document.createElement("form");
+    form.method = "POST";
+    form.enctype = "multipart/form-data";
+    form.action = "https://www.google.com/searchbyimage/upload";
+    form.target = "_blank";
+
+    const input = document.createElement("input");
+    input.type = "file";
+    input.name = "encoded_image";
+    input.files = this.files;
+
+    const hidden = document.createElement("input");
+    hidden.type = "hidden";
+    hidden.name = "image_content";
+    hidden.value = "";
+
+    form.appendChild(input);
+    form.appendChild(hidden);
+    document.body.appendChild(form);
+    form.submit();
+    document.body.removeChild(form);
+  };
+
+  reader.readAsArrayBuffer(file);
+});
+// Offline note save + load
+const noteArea = document.getElementById("offlineNote");
+const saveBtn = document.getElementById("saveNoteBtn");
+const noteStatus = document.getElementById("noteStatus");
+
+// Load saved note on page load
+window.addEventListener("DOMContentLoaded", () => {
+  const savedNote = localStorage.getItem("offlineNote");
+  if (savedNote) {
+    noteArea.value = savedNote;
+    noteStatus.textContent = "✅ Loaded saved note.";
+  }
+});
+
+// Save note to localStorage
+saveBtn.addEventListener("click", () => {
+  localStorage.setItem("offlineNote", noteArea.value);
+  noteStatus.textContent = "💾 Note saved locally.";
+});
+document.querySelector('#saveNoteBtn').addEventListener('click', function() {
+  // existing note saving logic...
+  
+  triggerPaperAnimation();
+});
+
+  function validateEmail(email) {
+    // Simple email format check
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  }
+
+  function handleLogin() {
+    const email = document.getElementById("email").value;
+    if (validateEmail(email)) {
+      localStorage.setItem("loggedInUserEmail", email);
+      document.getElementById("loginScreen").style.display = "none";
+      document.getElementById("mainContent").style.display = "block";
+    } else {
+      alert("Please enter a valid email address.");
+    }
+  }
+
+  // Auto-login if already saved
+  window.onload = function () {
+    if (localStorage.getItem("loggedInUserEmail")) {
+      document.getElementById("loginScreen").style.display = "none";
+      document.getElementById("mainContent").style.display = "block";
+    }
+  };
+
+
+      </script>
+      </div> <!-- End of mainContent -->
+
+    </body>
